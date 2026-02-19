@@ -13,10 +13,19 @@ def main():
     pass
 
 def read_input():
-    penguins = {}
-    inFile = open("penguins.csv")
-    penguins = csv.DictReader(inFile)
-    next(penguins)
+    penguins = []
+    with open("penguins.csv", newline="") as inFile:
+        reader = csv.DictReader(inFile)
+
+        for row in reader:
+            row["bill_length_mm"] = float(row["bill_length_mm"])
+            row["bill_depth_mm"] = float(row["bill_depth_mm"])
+            row["flipper_length_mm"] = int(row["flipper_length_mm"])
+            row["body_mass_g"] = int(row["body_mass_g"])
+
+            penguins.append(row)
+
+    return penguins
 
 def calculation_1():
     pass

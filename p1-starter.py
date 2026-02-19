@@ -9,9 +9,6 @@
 # your Gen 
 import csv
 
-def main():
-    pass
-
 def read_input():
     penguins = []
     with open("penguins.csv", newline="") as inFile:
@@ -27,18 +24,78 @@ def read_input():
 
     return penguins
 
-def calculation_1():
+def calc_island_flipper_lengths(penguins):
+    island_flipper_lengths = {}
+
+    for penguin in penguins:
+        island = penguin["island"]
+        sex = penguin["sex"]
+        flipper_length = penguin["flipper_length_mm"]
+
+        if flipper_length == "" or sex == "":
+            continue
+
+        if flipper_length > 210:
+            if island not in island_flipper_lengths:
+                island_flipper_lengths[island] = {"Male": 0, "Female": 0}
+
+            if sex in island_flipper_lengths[island]:
+                island_flipper_lengths[island][sex] += 1
+
+    return island_flipper_lengths
+        
+
+
+
+def _species_avg_body_mass(penguins):
+    data = {}
+    averages = {}
+
+    for penguin in penguins:
+        species = penguin["species"]
+        sex = penguin["sex"]
+        body_mass = penguin["body_mass_g"]
+
+        if species == "" or sex == "" or body_mass == "":
+            continue
+
+        if species not in data:
+            data[species] = {
+                "Male": {"total": 0, "count": 0},
+                "Female": {"total": 0, "count": 0}
+            }
+        
+        data[species][sex]["total"] += body_mass
+        data[species][sex]["count"] += 1
+    
+    for species in data.items():
+        averages[species] = {}
+        
+        for sex in data[species]:
+            total = data[species][sex]["total"]
+            count = data[species][sex]["count"]
+
+            if count > 0:
+                averages[species][sex] = total/count
+            else:
+                averages[species][sex] = 0
+                
+    return averages
+            
+
+
+
+
+
+def calculator_3(): 
     pass
 
-def calculation_2():
-    pass
-
-def calculation_3(): 
-    pass
-
-def calcultion_4():
+def calculator_4():
     pass
 
 def write_output():
     pass
 
+def main():
+    #calc_island_flipper_lengths()
+    pass

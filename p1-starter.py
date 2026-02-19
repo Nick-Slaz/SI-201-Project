@@ -79,7 +79,7 @@ def _species_avg_body_mass(penguins):
                 averages[species][sex] = total/count
             else:
                 averages[species][sex] = 0
-                
+
     return averages
             
 
@@ -87,15 +87,82 @@ def _species_avg_body_mass(penguins):
 
 
 
-def calculator_3(): 
-    pass
+def avg_body_mass_above_flipper_avg(data):
 
-def calculator_4():
-    pass
+    flippers = []
+    for row in data:
+        if row["flipper_length_mm"] != "":
+            flippers.append(float(row["flipper_length_mm"]))
+
+    if not flippers:
+        return {}
+
+    overall_avg = sum(flippers) / len(flippers)
+
+    species_totals = {}
+    species_counts = {}
+
+    for row in data:
+        if row["flipper_length_mm"] == "" or row["body_mass_g"] == "":
+            continue
+
+        fl = float(row["flipper_length_mm"])
+        body_mass = float(row["body_mass_g"])
+        species = row["species"]
+
+        if fl > overall_avg:
+            if species not in species_totals:
+                species_totals[species] = 0
+                species_counts[species] = 0
+
+            species_totals[species] += body_mass
+            species_counts[species] += 1
+
+    results = {}
+    for sp in species_totals:
+        results[sp] = species_totals[sp] / species_counts[sp]
+
+    return results
+
+def gender_percentage_by_island(data):
+
+    island_counts = {}
+    island_male = {}
+
+    for row in data:
+        island = row["island"]
+        sex = row["sex"]
+        bill = row["bill_length_mm"]
+
+        if sex == "" or bill == "":
+            continue
+
+        if island not in island_counts:
+            island_counts[island] = 0
+            island_male[island] = 0
+
+        island_counts[island] += 1
+        if sex.lower() == "male":
+            island_male[island] += 1
+
+    results = {}
+    for isl in island_counts:
+        male_count = island_male[isl]
+        total = island_counts[isl]
+        female_count = total - male_count
+
+        male_pct = (male_count / total) * 100
+        female_pct = (female_count / total) * 100
+
+        results[isl] = {
+            "male": round(male_pct, 2),
+            "female": round(female_pct, 2)
+        }
+
+    return results
 
 def write_output():
     pass
 
 def main():
-    #calc_island_flipper_lengths()
     pass

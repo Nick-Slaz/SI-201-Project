@@ -1,0 +1,21 @@
+penguins results
+================
+
+1) count of penguins with flipper length > 210 (by island + sex)
+  - Biscoe: male=59, female=36
+  - Dream: male=1, female=0
+
+2) average body mass (g) by species + sex
+  - Adelie: male=4043.49, female=3368.84
+  - Gentoo: male=5484.84, female=4679.74
+  - Chinstrap: male=3938.97, female=3527.21
+
+3) avg body mass (g) for penguins above the overall avg flipper length (by species)
+  - Adelie: 4107.14
+  - Gentoo: 5076.02
+  - Chinstrap: 4130.56
+
+4) gender percentage by island (filtered to rows with bill_length_mm present)
+  - Torgersen: male=48.94%, female=51.06%
+  - Biscoe: male=50.92%, female=49.08%
+  - Dream: male=50.41%, female=49.59%
